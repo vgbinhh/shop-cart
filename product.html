@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CaseFinity Product Page</title>
+  <style>
+    body {
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      padding: 20px;
+      background-color: #f7f5ee;
+      color: #333;
+    }
+    .product {
+      border: 1px solid #ccc;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    select, button {
+      margin-top: 10px;
+      padding: 6px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <h1>🛍️ CaseFinity Phone Cases</h1>
+  <div id="products"></div>
+
+  <script>
+    const cases = [
+      { name: 'Light Green CaseFinity Original', price: 150000 },
+      { name: 'Beige CaseFinity Original', price: 150000 },
+      { name: 'Dark Green CaseFinity Original', price: 150000 },
+      { name: 'CaseFinity x Barbie', price: 300000 },
+      { name: 'CaseFinity x Hello Kitty', price: 300000 },
+      { name: 'CaseFinity Whimsy World', price: 300000 },
+      { name: 'CaseFinity Coquette Dreams', price: 300000 },
+      { name: 'CaseFinity Retro Green', price: 300000 },
+      { name: 'CaseFinity Magsafe CherryPop', price: 300000 },
+      { name: 'CaseFinity Ghost Graffiti', price: 300000 },
+      { name: 'CaseFinity Lil’ Buzz', price: 300000 },
+      { name: 'CaseFinity Puppy Parade', price: 300000 },
+      { name: 'CaseFinity Label Craze', price: 300000 },
+      { name: 'CaseFinity Graffiti Chaos', price: 300000 },
+      { name: 'CaseFinity Pizzart', price: 300000 }
+    ];
+
+    const sizes = [
+      'iPhone 14', 'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max',
+      'iPhone 15', 'iPhone 15 Plus', 'iPhone 15 Pro', 'iPhone 15 Pro Max',
+      'iPhone 16', 'iPhone 16 Plus', 'iPhone 16 Pro', 'iPhone 16 Pro Max'
+    ];
+
+    function addToCart(name, price, size) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price, size });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} (${size}) added to your cart!`);
+    }
+
+    function loadProducts() {
+      const container = document.getElementById("products");
+      cases.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <h3>${item.name}</h3>
+          <p>Price: ${item.price.toLocaleString()} VND</p>
+          <label for="size${index}">Choose size:</label>
+          <select id="size${index}">
+            ${sizes.map(size => `<option>${size}</option>`).join('')}
+          </select>
+          <button onclick="addToCart('${item.name}', ${item.price}, document.getElementById('size${index}').value)">Add to Cart</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    loadProducts();
+  </script>
+</body>
+</html>
