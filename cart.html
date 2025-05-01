@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      padding: 20px;
+      background-color: #f7f5ee;
+      color: #333;
+    }
+    #cart {
+      border-top: 2px dashed #aaa;
+      padding-top: 20px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <h1>Your Shopping Cart 🧺</h1>
+
+  <div id="cart">
+    <ul id="cart-items"></ul>
+    <p><strong>Total: <span id="total">0</span> VND</strong></p>
+    <button onclick="checkout()">Checkout</button>
+  </div>
+
+  <script>
+    function renderCart() {
+      const cartList = document.getElementById("cart-items");
+      const totalField = document.getElementById("total");
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cartList.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - ${item.size} - ${item.price.toLocaleString()} VND`;
+        cartList.appendChild(li);
+        total += item.price;
+      });
+      totalField.textContent = total.toLocaleString();
+    }
+
+    function checkout() {
+      alert("Thank you for your order! We'll contact you soon.");
+      localStorage.removeItem("cart");
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
